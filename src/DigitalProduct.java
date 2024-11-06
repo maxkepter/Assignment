@@ -7,8 +7,8 @@ public class DigitalProduct extends Product {
     }
 
     @Override
-    public String toString() {
-        return super.getInfo() + ", " + fileSize + " MB";
+    public String getInfo() {
+        return super.getInfo() + ", File Size:" + fileSize + " MB";
     }
 
 }
