@@ -63,3 +63,10 @@ Total Amount: 0.00
 Order ID: 2, CustomerId: 2, Name: manh, Email: 2qf
 Total Amount: 0.00
 ---------------------------
+Order ID: 1, CustomerId: 1, Name: masf, Email: 
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: masf, Email: 
+ - ProductID: 1, Name: , Price: 100.0, Quantity: 3
+Total Amount: 300.00
+---------------------------

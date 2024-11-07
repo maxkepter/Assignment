@@ -84,7 +84,7 @@ public class App {
 
     public static void main(String[] args) {
         Store store = new Store();
-        // Menu lua chon
+        // Menu Data Field
         int mainChoice;
         int subChoice;
         int selectedProductId;

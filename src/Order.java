@@ -25,6 +25,7 @@ public class Order {
             products.add(product);
             product.updateQuantity(quantity);
             productQuan.add(quantity);
+            saveOrderToFile();
         }
 
     }

@@ -24,8 +24,6 @@ public class Product {
     return name;
   }
 
-
-
   public double getPrice() {
     return price;
   }
@@ -33,12 +31,12 @@ public class Product {
   public int getQuantity() {
     return quantity;
   }
-
+  //Lay thong tin product
   public String getInfo() {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price + ", Quantity: "
         + this.quantity;
   }
-
+  //Lay thong tin product cho order
   public String getOrderInfo() {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price;
   }
