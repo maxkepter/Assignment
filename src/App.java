@@ -87,6 +87,7 @@ public class App {
         // Menu lua chon
         int mainChoice;
         int subChoice;
+        int selectedProductId;
         // Product Data Field
         int productId;
         String name;
@@ -122,6 +123,7 @@ public class App {
                         System.out.println("1. Them san pham");
                         System.out.println("2. Tao order");
                         System.out.println("3. Thoat");
+                        // Nhap sub menu
                         subChoice = checkInputInt();
                         if (subChoice == 1) {
                             System.out.println("-------------------------------");
@@ -205,17 +207,42 @@ public class App {
                             Order ord = store.createOrder(c);
                             orders.add(ord);
 
-                            // for (Product prt : store.getProducts()) {
-                            // System.out.println(prt);
-                            // }
-
-                            // Mua san pham
-                            System.out.println("-------------------------------");
+                            // Hien thi san pham hien co
+                            System.out.println("Danh sach san pham hien co:");
                             for (Product p : products) {
                                 System.out.println(p.getInfo());
-                                System.out.print("Nhap so luong muon mua cho san pham: ");
+                            }
+
+                            // Khach chon san pham va so luong
+                            while (true) {
+                                System.out.print("Nhap ID san pham muon mua (hoac nhap -1 de ket thuc): ");
+                                selectedProductId = checkInputInt();
+                                if (selectedProductId == -1) {
+                                    break; // Thoat chon
+                                }
+                                // Chon san pham
+                                Product selectedProduct = null;
+                                for (Product p : products) {
+                                    if (p.getProductId() == selectedProductId) {
+                                        selectedProduct = p;
+                                        break;
+                                    }
+                                }
+                                if (selectedProduct == null) {
+                                    System.out.println("ID san pham khong hop le. Vui long nhap lai.");
+                                    continue;
+                                }
+                                // Chon so luong
+                                System.out.print("Nhap so luong muon mua cho san pham " + selectedProduct.getName() + ": ");
                                 bquantity = checkInputInt();
-                                ord.addProduct(p, bquantity);
+
+                                if (bquantity > selectedProduct.getQuantity()) {
+                                    System.out.println("So luong khong du. Chi con " + selectedProduct.getQuantity() + " san pham.");
+                                    continue;
+                                }
+                                // Them san pham vao order
+                                ord.addProduct(selectedProduct, bquantity);
+                                System.out.println("San pham da duoc them vao don hang.");
                             }
                             System.out.println("Don hang da duoc tao.");
                         } // subChoice 2 end

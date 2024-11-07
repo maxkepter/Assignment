@@ -51,3 +51,15 @@ Total Amount: 0.00
 Order ID: 1, CustomerId: 1, Name: manh, Email: aelfjn
 Total Amount: 0.00
 ---------------------------
+Order ID: 1, CustomerId: 1, Name: , Email: awf
+Total Amount: 0.00
+---------------------------
+Order ID: 2, CustomerId: 2, Name: tu, Email: 123
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: manh, Email: wawf
+Total Amount: 0.00
+---------------------------
+Order ID: 2, CustomerId: 2, Name: manh, Email: 2qf
+Total Amount: 0.00
+---------------------------
