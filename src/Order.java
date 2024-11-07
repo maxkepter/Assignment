@@ -10,10 +10,9 @@ public class Order {
     private Customer customer;
     private List<Product> products = new ArrayList<>();
     private double totalAmount;
-    File f = new File("\"C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\Assignment\\Order.txt\"");
+    File f = new File("C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\Assignment\\Order.txt");
 
-    public Order(
-            int orderId, Customer customer) {
+    public Order(int orderId, Customer customer) {
         this.customer = customer;
         this.orderId = orderId;
     }
@@ -41,17 +40,23 @@ public class Order {
             detail += "\n";
             detail += " - " + products.get(i).getInfo();
         }
+        detail += String.format("\nTotal Amount: %.2f", calculateTotal());
 
         return detail;
     }
 
     public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(f, true))) { 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(f, true))) {
             writer.write(getOrderDetails());
-            writer.write("\n---------------------------\n"); 
+            writer.write("\n---------------------------\n");
             System.out.println("Thong tin don hang da duoc luu vao file: " + f.getAbsolutePath());
         } catch (IOException e) {
             System.out.println("Co loi khi ghi thong tin: " + e.getMessage());
         }
     }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
 }

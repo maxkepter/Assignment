@@ -13,4 +13,9 @@ public class Customer {
         return "CustomerId: " + this.customerId + ", Name: " + this.name + ", Email: " + this.email;
 
     }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
 }
