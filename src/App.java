@@ -255,38 +255,51 @@ public class App {
                     }
                     break;
                 case 3:
+                    // Kiem tra neu danh sach san pham trong
                     if (products.isEmpty()) {
-                        System.out.println("Khong co san pham");
+                        System.out.println("Khong co san pham"); // Thong bao khong co san pham nao trong danh sach
                     } else {
+                        // Yeu cau nguoi dung nhap ID san pham can cap nhat
                         System.out.print("Nhap ID san pham can cap nhat: ");
                         int updateProductId = checkInputInt();
+
+                        // Tim vi tri cua san pham co ID can cap nhat trong danh sach
                         int productIndex = idToIndex(updateProductId, products);
-                        while (updateProductId == -1) {
+
+                        // Neu ID khong ton tai, yeu cau nhap lai cho den khi ton tai
+                        while (productIndex == -1) {
                             System.out.println("San pham khong ton tai");
                             System.out.println("Nhap lai ID san pham");
                             updateProductId = checkInputInt();
+                            productIndex = idToIndex(updateProductId, products);
                         }
+
+                        // Lay san pham can cap nhat bang ID tu danh sach
                         Product productToUpdate = products.get(productIndex);
                         System.out.println("Cap nhat thong tin cho san pham: " + productToUpdate.getName());
 
+                        // Nhap ten moi cho san pham (de trong neu khong muon thay doi)
                         System.out.print("Nhap ten moi (de trong neu khong muon thay doi): ");
                         String newName = sc.nextLine();
                         if (!newName.trim().isEmpty()) {
                             productToUpdate.setName(newName);
                         }
 
+                        // Nhap gia moi cho san pham (nhap -1 neu khong thay doi)
                         System.out.print("Nhap gia moi (nhap -1 neu khong thay doi): ");
                         double newPrice = checkInputDouble();
                         if (newPrice >= 0) {
                             productToUpdate.setPrice(newPrice);
                         }
 
+                        // Nhap so luong moi cho san pham (nhap -1 neu khong thay doi)
                         System.out.print("Nhap so luong moi (nhap -1 neu khong thay doi): ");
                         int newQuantity = checkInputInt();
                         if (newQuantity >= 0) {
                             productToUpdate.setQuantity(newQuantity);
                         }
 
+                        // Thong bao cap nhat thanh cong thong tin san pham
                         System.out.println("Thong tin san pham da duoc cap nhat.");
                     }
 
