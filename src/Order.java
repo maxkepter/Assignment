@@ -9,8 +9,9 @@ public class Order {
     private int orderId;
     private Customer customer;
     private List<Product> products = new ArrayList<>();
+    private List<Integer> productQuan = new ArrayList<>();
     private double totalAmount;
-    File f = new File("C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\Assignment\\Order.txt");
+    File Orderf = new File("E:\\PL\\Git\\Github\\Assignment\\Order.txt");
 
     public Order(int orderId, Customer customer) {
         this.customer = customer;
@@ -19,17 +20,19 @@ public class Order {
 
     public void addProduct(Product product, int quantity) {
         if (quantity > product.getQuantity()) {
-            System.out.println("Not enough quantity in stock.");
+            System.out.println("Khong co du so luong trong kho.");
         } else {
             products.add(product);
             product.updateQuantity(quantity);
+            productQuan.add(quantity);
         }
 
     }
 
     public double calculateTotal() {
+        totalAmount =0;
         for (int i = 0; i < products.size(); i++) {
-            totalAmount += products.get(i).getPrice();
+            totalAmount += products.get(i).getPrice() * productQuan.get(i);
         }
         return totalAmount;
     }
@@ -38,18 +41,18 @@ public class Order {
         String detail = "Order ID: " + Integer.toString(orderId) + ", " + customer.getInfo();
         for (int i = 0; i < products.size(); i++) {
             detail += "\n";
-            detail += " - " + products.get(i).getInfo();
+            detail += " - " + products.get(i).getOrderInfo() + ", Quantity: " + productQuan.get(i);
         }
         detail += String.format("\nTotal Amount: %.2f", calculateTotal());
 
         return detail;
     }
 
-    public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(f, true))) {
+    public void saveOrderToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Orderf, true))) {
             writer.write(getOrderDetails());
             writer.write("\n---------------------------\n");
-            System.out.println("Thong tin don hang da duoc luu vao file: " + f.getAbsolutePath());
+            System.out.println("Thong tin don hang da duoc luu vao file: " + Orderf.getAbsolutePath());
         } catch (IOException e) {
             System.out.println("Co loi khi ghi thong tin: " + e.getMessage());
         }

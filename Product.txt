@@ -1,0 +1,10 @@
+ProductID: 1, Name: banh mi, Price: 200.0, Quantity: 25
+---------------------------
+ProductID: 2, Name: xuc xich, Price: 100.0, Quantity: 24
+---------------------------
+ProductID: 1, Name: banh mi, Price: 200.0, Quantity: 100
+---------------------------
+ProductID: 1, Name: banh mi, Price: 200.0, Quantity: 26
+---------------------------
+ProductID: 2, Name: xuc xich, Price: 120.0, Quantity: 54
+---------------------------
