@@ -8,8 +8,7 @@ public class Product {
   private String name;
   private double price;
   private int quantity;
-  File Productf = new File("E:\\PL\\Git\\Github\\Assignment\\Product.txt");
-
+  File Productf = new File("../Product.txt");
 
   public Product(int productId, String name, double price, int quantity) {
     this.productId = productId;
@@ -17,8 +16,6 @@ public class Product {
     this.price = price;
     this.quantity = quantity;
   }
-
-  
 
   public String getName() {
     return name;
@@ -31,12 +28,13 @@ public class Product {
   public int getQuantity() {
     return quantity;
   }
-  //Lay thong tin product
+
+  // Lay thong tin product
   public String getInfo() {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price + ", Quantity: "
         + this.quantity;
   }
-  //Lay thong tin product cho order
+  //Lay thong tin product order
   public String getOrderInfo() {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price;
   }
@@ -62,13 +60,13 @@ public class Product {
   }
 
   public void saveProductToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Productf, true))) {
-            writer.write(getInfo());
-            writer.write("\n---------------------------\n");
-            System.out.println("Thong tin san da duoc luu vao file: " + Productf.getAbsolutePath());
-        } catch (IOException e) {
-            System.out.println("Co loi khi ghi thong tin: " + e.getMessage());
-        }
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(Productf, true))) {
+      writer.write(getInfo());
+      writer.write("\n---------------------------\n");
+      System.out.println("Thong tin san da duoc luu vao file: " + Productf.getAbsolutePath());
+    } catch (IOException e) {
+      System.out.println("Co loi khi ghi thong tin: " + e.getMessage());
     }
+  }
 
 }

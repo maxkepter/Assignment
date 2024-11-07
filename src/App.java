@@ -9,6 +9,10 @@ public class App {
         while (true) {
             try {
                 int result = Integer.parseInt(sc.nextLine());
+                while (result < 0) {
+                    System.out.print("Vui long nhap lai: ");
+                    result = Integer.parseInt(sc.nextLine());
+                }
                 return result;
             } catch (NumberFormatException e) {
                 System.out.print("Vui long nhap lai: ");
@@ -20,6 +24,40 @@ public class App {
         while (true) {
             try {
                 double result = Double.parseDouble(sc.nextLine());
+                while (result < 0) {
+                    System.out.print("Vui long nhap la: ");
+                    result = Double.parseDouble(sc.nextLine());
+                }
+                return result;
+            } catch (NumberFormatException e) {
+                System.out.print("Vui long nhap lai: ");
+            }
+        }
+    }
+
+    private static int updateInt() {
+        while (true) {
+            try {
+                int result = Integer.parseInt(sc.nextLine());
+                while (result < -1) {
+                    System.out.print("Vui long nhap lai: ");
+                    result = Integer.parseInt(sc.nextLine());
+                }
+                return result;
+            } catch (NumberFormatException e) {
+                System.out.print("Vui long nhap lai: ");
+            }
+        }
+    }
+
+    private static double updateDouble() {
+        while (true) {
+            try {
+                double result = Double.parseDouble(sc.nextLine());
+                while (result < -1) {
+                    System.out.print("Vui long nhap la: ");
+                    result = Double.parseDouble(sc.nextLine());
+                }
                 return result;
             } catch (NumberFormatException e) {
                 System.out.print("Vui long nhap lai: ");
@@ -34,16 +72,6 @@ public class App {
             }
         }
         return -1;
-    }
-
-    private static int checkInputIdInt(List<Product> p) {
-        int id;
-        id = checkInputInt();
-        while (isDupIdProduct(p, id)) {
-            System.err.println("Id bi trung vui long nhap lai");
-            id = checkInputInt();
-        }
-        return id;
     }
 
     private static boolean isDupIdProduct(List<Product> p, int id) {
@@ -83,6 +111,7 @@ public class App {
     }
 
     public static void main(String[] args) {
+
         Store store = new Store();
         // Menu Data Field
         int mainChoice;
@@ -112,7 +141,9 @@ public class App {
             System.out.println("Ban muon lam gi");
             System.out.println("1. Tao moi don hang");
             System.out.println("2. In danh sach don hang");
-            System.out.println("3. Thoat");
+            System.out.println("3. In danh sach san pham");
+            System.out.println("4. Cap nhat thong tin san pham");
+            System.out.println("5. Thoat");
             System.out.println("-------------------------------");
             mainChoice = checkInputInt();
             switch (mainChoice) {
@@ -145,7 +176,7 @@ public class App {
                                 productId = checkInputInt();
                                 // Check ID san pham
                                 while (isDupIdProduct(store.getProducts(), productId)) {
-                                    System.out.println("ID san pham bi trung vui long nhap lai");
+                                    System.out.print("ID san pham bi trung vui long nhap lai: ");
                                     productId = checkInputInt();
                                 }
                                 // Thong tin
@@ -157,7 +188,7 @@ public class App {
                                 quantity = checkInputInt();
                                 // Data field san pham loai 2
                                 if (typeProduct == 2) {
-                                    System.out.println("Nhap dung luong san pham");
+                                    System.out.print("Nhap dung luong san pham: ");
                                     fileSize = checkInputDouble();
                                     p = new DigitalProduct(productId, name, price, quantity, fileSize);
                                 } else {
@@ -186,7 +217,7 @@ public class App {
                             cusId = checkInputInt();
                             // Kiem tra Id khach hang
                             while (isDupIdCus(cs, cusId)) {
-                                System.out.println("ID khach hang bi trung vui long nhap lai");
+                                System.out.print("ID khach hang bi trung vui long nhap lai: ");
                                 cusId = checkInputInt();
                             }
                             // Nhap thong tin
@@ -215,9 +246,9 @@ public class App {
 
                             // Khach chon san pham va so luong
                             while (true) {
-                                System.out.print("Nhap ID san pham muon mua (hoac nhap -1 de ket thuc): ");
+                                System.out.print("Nhap ID san pham muon mua (hoac nhap 0 de ket thuc): ");
                                 selectedProductId = checkInputInt();
-                                if (selectedProductId == -1) {
+                                if (selectedProductId == 0) {
                                     break; // Thoat chon
                                 }
                                 // Chon san pham
@@ -233,11 +264,13 @@ public class App {
                                     continue;
                                 }
                                 // Chon so luong
-                                System.out.print("Nhap so luong muon mua cho san pham " + selectedProduct.getName() + ": ");
+                                System.out.print(
+                                        "Nhap so luong muon mua cho san pham " + selectedProduct.getName() + ": ");
                                 bquantity = checkInputInt();
 
                                 if (bquantity > selectedProduct.getQuantity()) {
-                                    System.out.println("So luong khong du. Chi con " + selectedProduct.getQuantity() + " san pham.");
+                                    System.out.println("So luong khong du. Chi con " + selectedProduct.getQuantity()
+                                            + " san pham.");
                                     continue;
                                 }
                                 // Them san pham vao order
@@ -261,7 +294,7 @@ public class App {
                     break;
 
                 case 2:
-                    // In don hang
+                    // Print all orders
                     if (store.getAllOrders().isEmpty()) {
                         System.out.println("Khong co don hang");
                     } else {
@@ -272,6 +305,64 @@ public class App {
                     }
                     break;
                 case 3:
+                    System.out.println("Danh sach san pham hien co:");
+                    for (Product p : products) {
+                        System.out.println(p.getInfo());
+                    }
+                    break;
+                case 4:
+                    // Kiem tra neu danh sach san pham trong
+                    if (products.isEmpty()) {
+                        System.out.println("Khong co san pham"); // Thong bao khong co san pham nao trong danh sach
+                    } else {
+                        // Yeu cau nguoi dung nhap ID san pham can cap nhat
+                        System.out.print("Nhap ID san pham can cap nhat: ");
+                        int updateProductId = checkInputInt();
+
+                        // Tim vi tri cua san pham co ID can cap nhat trong danh sach
+                        int productIndex = idToIndex(updateProductId, products);
+
+                        // Neu ID khong ton tai, yeu cau nhap lai cho den khi ton tai
+                        while (productIndex == -1) {
+                            System.out.println("San pham khong ton tai");
+                            System.out.println("Nhap lai ID san pham");
+                            updateProductId = checkInputInt();
+                            productIndex = idToIndex(updateProductId, products);
+                        }
+
+                        // Lay san pham can cap nhat bang ID tu danh sach
+                        Product productToUpdate = products.get(productIndex);
+                        System.out.println("Cap nhat thong tin cho san pham: " + productToUpdate.getName());
+
+                        // Nhap ten moi cho san pham (de trong neu khong muon thay doi)
+                        System.out.print("Nhap ten moi (de trong neu khong muon thay doi): ");
+                        String newName = sc.nextLine();
+                        if (!newName.trim().isEmpty()) {
+                            productToUpdate.setName(newName);
+                        }
+
+                        // Nhap gia moi cho san pham (nhap -1 neu khong thay doi)
+                        System.out.println("Gia hien tai: " + productToUpdate.getPrice());
+                        System.out.print("Nhap gia moi (nhap -1 neu khong thay doi): ");
+                        double newPrice = updateDouble();
+                        if (newPrice >= 0) {
+                            productToUpdate.setPrice(newPrice);
+                        }
+
+                        // Nhap so luong moi cho san pham (nhap -1 neu khong thay doi)
+                        System.out.println("So luong hien tai: " + productToUpdate.getQuantity());
+                        System.out.print("Nhap so luong moi (nhap -1 neu khong thay doi): ");
+                        int newQuantity = updateInt();
+                        if (newQuantity >= 0) {
+                            productToUpdate.setQuantity(newQuantity);
+                        }
+
+                        // Thong bao cap nhat thanh cong thong tin san pham
+                        System.out.println("Thong tin san pham da duoc cap nhat.");
+                    }
+
+                    break;
+                case 5:
                     System.out.println("Thoat chuong trinh.");
                     System.exit(0);
                 default:

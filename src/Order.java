@@ -11,7 +11,7 @@ public class Order {
     private List<Product> products = new ArrayList<>();
     private List<Integer> productQuan = new ArrayList<>();
     private double totalAmount;
-    File Orderf = new File("E:\\PL\\Git\\Github\\Assignment\\Order.txt");
+    File Orderf = new File("C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\Assignment\\Order.txt");
 
     public Order(int orderId, Customer customer) {
         this.customer = customer;
@@ -31,7 +31,6 @@ public class Order {
     }
 
     public double calculateTotal() {
-        totalAmount =0;
         for (int i = 0; i < products.size(); i++) {
             totalAmount += products.get(i).getPrice() * productQuan.get(i);
         }

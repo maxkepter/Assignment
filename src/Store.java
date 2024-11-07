@@ -13,7 +13,6 @@ public class Store {
     public Order createOrder(Customer customer) {
         Order order = new Order(orders.size() + 1, customer);
         orders.add(order);
-        order.saveOrderToFile();
         return order;
     }
 
