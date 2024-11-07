@@ -3,6 +3,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Product {
   private int productId;
   private String name;
@@ -29,6 +34,7 @@ public class Product {
     return quantity;
   }
 
+  // Lay thong tin product
   public String getInfo() {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price + ", Quantity: "
         + this.quantity;
@@ -56,6 +62,16 @@ public class Product {
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  public void saveProductToFile() {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(Productf, true))) {
+      writer.write(getInfo());
+      writer.write("\n---------------------------\n");
+      System.out.println("Thong tin san da duoc luu vao file: " + Productf.getAbsolutePath());
+    } catch (IOException e) {
+      System.out.println("Co loi khi ghi thong tin: " + e.getMessage());
+    }
   }
 
   public void saveProductToFile() {

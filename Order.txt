@@ -31,3 +31,37 @@ Order ID: 2, CustomerId: 2, Name: dasdad, Email: dadasd
  - ProductID: 1, Name: dmm, Price: 20.0, Quantity: 10
 Total Amount: 200.00
 ---------------------------
+Order ID: 1, CustomerId: 1, Name: manh, Email: asdw
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 2, Name: 2, Email: 2
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: manh, Email: awf
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: manh, Email: aw
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: manh, Email: aelfjn
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: , Email: awf
+Total Amount: 0.00
+---------------------------
+Order ID: 2, CustomerId: 2, Name: tu, Email: 123
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: manh, Email: wawf
+Total Amount: 0.00
+---------------------------
+Order ID: 2, CustomerId: 2, Name: manh, Email: 2qf
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: masf, Email: 
+Total Amount: 0.00
+---------------------------
+Order ID: 1, CustomerId: 1, Name: masf, Email: 
+ - ProductID: 1, Name: , Price: 100.0, Quantity: 3
+Total Amount: 300.00
+---------------------------

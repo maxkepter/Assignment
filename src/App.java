@@ -93,10 +93,9 @@ public class App {
     public static void main(String[] args) {
 
         Store store = new Store();
-        // Menu lua chon
-        int mainChoice;
-        int subChoice;
-        // Product Data Field
+        int choice;
+        int soSanPham;
+        int orderId;
         int productId;
         String name;
         double price;
@@ -128,123 +127,87 @@ public class App {
                 case 1:
                     // Them san pham
                     System.out.println("-------------------------------");
+
                     while (true) {
-                        System.out.println("1. Them san pham");
-                        System.out.println("2. Tao order");
-                        System.out.println("3. Thoat");
-                        subChoice = checkInputInt();
-                        if (subChoice == 1) {
-                            System.out.println("-------------------------------");
-                            while (true) {
-                                Product p = null;
-                                // Nhap loai san pham
-                                System.out.println("Vui long nhap thong tin san pham");
-                                System.out.println("Chon loai san pham");
-                                System.out.println("1. San pham thuong");
-                                System.out.println("2. San pham dien tu");
-                                // Kiem tra dau vao loai san pham
-                                int typeProduct = checkInputInt();
-                                while (typeProduct != 1 && typeProduct != 2) {
-                                    System.out.println("Lua chon khong hop le vui long nhap lai");
-                                    typeProduct = checkInputInt();
-                                }
-                                // Nhap thong tin san pham
-                                System.out.print("Nhap id san pham: ");
-                                productId = checkInputInt();
-                                // Check ID san pham
-                                while (isDupIdProduct(store.getProducts(), productId)) {
-                                    System.out.println("ID san pham bi trung vui long nhap lai");
-                                    productId = checkInputInt();
-                                }
-                                // Thong tin
-                                System.out.print("Nhap ten san pham: ");
-                                name = sc.nextLine();
-                                System.out.print("Nhap gia san pham: ");
-                                price = checkInputDouble();
-                                System.out.print("Nhap so luong san pham: ");
-                                quantity = checkInputInt();
-                                // Data field san pham loai 2
-                                if (typeProduct == 2) {
-                                    System.out.println("Nhap dung luong san pham");
-                                    fileSize = checkInputDouble();
-                                    p = new DigitalProduct(productId, name, price, quantity, fileSize);
-                                } else {
-                                    p = new Product(productId, name, price, quantity);
-                                }
-                                products.add(p);
-                                store.addProduct(p);
-                                System.out.println("San pham da duoc them");
-                                System.out.println("-------------------------------");
-                                // Them san pham nua hoac khong
-                                System.out.println("Ban co muon them san pham nua khong(1.Co/2.Khong)");
-                                int choiceCase1_1 = checkInputInt();
-                                if (choiceCase1_1 == 2) {
-                                    break;
-                                }
-                            }
-                        } // subChoice 1 end
-
-                        // subChoice 2 start
-                        else if (subChoice == 2) {
-                            // Tao order moi
-
-                            // Dien thong tin khach hang
-                            System.out.println("Vui long dien thong tin khach hang");
-                            System.out.print("ID khach hang: ");
-                            cusId = checkInputInt();
-                            // Kiem tra Id khach hang
-                            while (isDupIdCus(cs, cusId)) {
-                                System.out.println("ID khach hang bi trung vui long nhap lai");
-                                cusId = checkInputInt();
-                            }
-                            // Nhap thong tin
-                            System.out.print("Ten khach hang: ");
-                            cusName = sc.nextLine();
-                            System.out.print("Email khach hang: ");
-                            cusEmail = sc.nextLine();
-                            Customer c = new Customer(cusId, cusName, cusEmail);
-                            cs.add(c);
-                            System.out.println("-------------------------------");
-                            // Them don hang
-                            System.out.print("Nhap id don hang: ");
-                            orderId = checkInputInt();
-                            while (isDupIdOrder(orders, orderId)) {
-                                System.out.println("ID don hang bi trung vui long nhap lai");
-                                orderId = checkInputInt();
-                            }
-                            Order ord = store.createOrder(c);
-                            orders.add(ord);
-                            // Mua san pham
-                            System.out.println("-------------------------------");
-                            for (Product p : products) {
-                                System.out.println(p.getInfo());
-                                System.out.print("Nhap so luong muon mua cho san pham: ");
-                                bquantity = checkInputInt();
-                                if (bquantity > 0) {
-                                    ord.addProduct(p, bquantity);
-                                }
-
-                            }
-                            ord.saveOrderToFile();
-                            System.out.println("Don hang da duoc tao.");
-                        } // subChoice 2 end
-
-                        // subChoice 3 start
-                        else if (subChoice == 3) {
-                            break; // Quay lai Menu
-                        } // subChoice 3 end
-
-                        // else start
-                        else {
-                            System.out.println("Lua chon khong hop le. Vui long nhap lai.");
-                        } // else end
-
+                        Product p = null;
+                        System.out.println("Vui long nhap thong tin san pham");
+                        System.out.println("Chon loai san pham");
+                        System.out.println("1. San pham thuong");
+                        System.out.println("2. San pham dien tu");
+                        int typeProduct = checkInputIdInt(products);
+                        while (typeProduct != 1 && typeProduct != 2) {
+                            System.out.println("Lua chon khong hop le vui long nhap lai");
+                            typeProduct = checkInputInt();
+                        }
+                        System.out.print("Nhap id san pham: ");
+                        productId = checkInputInt();
+                        while (isDupIdProduct(store.getProducts(), productId)) {
+                            System.out.println("ID san pham bi trung vui long nhap lai");
+                            productId = checkInputInt();
+                        }
+                        System.out.print("Nhap ten san pham: ");
+                        name = sc.nextLine();
+                        System.out.print("Nhap gia san pham: ");
+                        price = checkInputDouble();
+                        System.out.print("Nhap so luong san pham: ");
+                        quantity = checkInputInt();
+                        if (typeProduct == 2) {
+                            System.out.println("Nhap dung luong san pham");
+                            fileSize = checkInputDouble();
+                            p = new DigitalProduct(productId, name, price, quantity, fileSize);
+                        } else {
+                            p = new Product(productId, name, price, quantity);
+                        }
+                        products.add(p);
+                        store.addProduct(p);
+                        System.out.println("San pham da duoc them");
+                        System.out.println("-------------------------------");
+                        System.out.println("Ban co muon them san pham nua khong(1.Co/2.Khong)");
+                        int choiceCase1_1 = checkInputInt();
+                        if (choiceCase1_1 == 2) {
+                            break;
+                        }
                     }
+                    // Tao order moi
+                    System.out.println("Vui long dien thong tin khach hang");
+                    System.out.print("ID khach hang: ");
+                    cusId = checkInputInt();
+                    while (isDupIdCus(cs, cusId)) {
+                        System.out.println("ID khach hang bi trung vui long nhap lai");
+                        cusId = checkInputInt();
+                    }
+                    System.out.print("Ten khach hang: ");
+                    cusName = sc.nextLine();
+                    System.out.print("Email khach hang: ");
+                    cusEmail = sc.nextLine();
+                    Customer c = new Customer(cusId, cusName, cusEmail);
+                    cs.add(c);
+                    System.out.println("-------------------------------");
+                    System.out.print("Nhap id don hang: ");
+                    orderId = checkInputInt();
+                    while (isDupIdOrder(orders, orderId)) {
+                        System.out.println("ID don hang bi trung vui long nhap lai");
+                        orderId = checkInputInt();
+                    }
+                    Order ord = store.createOrder(c);
+                    orders.add(ord);
+                    // for (Product prt : store.getProducts()) {
+                    // System.out.println(prt);
+                    // }
+
+                    // Adding products to order
+                    System.out.println("-------------------------------");
+                    for (Product p : products) {
+                        System.out.println(p.getInfo());
+                        System.out.print("Nhap so luong muon mua cho san pham: ");
+                        bquantity = checkInputInt();
+                        ord.addProduct(p, bquantity);
+                    }
+                    System.out.println("Don hang da duoc tao.");
                     break;
 
                 case 2:
-                    // In don hang
-
+                    // Print all orders
                     if (store.getAllOrders().isEmpty()) {
                         System.out.println("Khong co don hang");
                     } else {
@@ -307,8 +270,7 @@ public class App {
                 case 4:
                     System.out.println("Thoat chuong trinh.");
                     System.exit(0);
-                default:
-                    System.out.println("Lua chon khong hop le. Vui long nhap lai.");
+
             }
         }
     }
