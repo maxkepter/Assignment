@@ -7,12 +7,12 @@ public class Store {
 
     public void addProduct(Product product) {
         products.add(product);
+        product.saveProductToFile();
     }
 
     public Order createOrder(Customer customer) {
         Order order = new Order(orders.size() + 1, customer);
         orders.add(order);
-        order.saveToFile();
         return order;
     }
 
