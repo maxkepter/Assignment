@@ -313,10 +313,46 @@ public class App {
                     }
                     break;
                 case 3:
-                    System.out.println("-------------------------------");
-                    System.out.println("Danh sach san pham hien co:");
-                    for (Product p : products) {
-                        System.out.println(p.getInfo());
+                    boolean exitCase3_1 = false;
+                    while (!exitCase3_1) {
+                        System.out.println("-------------------------------");
+                        System.out.println("1.Xem sap xep theo ID");
+                        System.out.println("2.Xem sap xep theo gia");
+                        System.out.println("3.Xem sap xep theo so luong");
+                        System.out.println("4.Xem sap xep theo ten");
+                        System.out.println("5.Thoat");
+                        System.out.println("-------------------------------");
+                        int choiceCase3 = checkInputInt();
+
+                        switch (choiceCase3) {
+                            case 1:
+                                Collections.sort(products, (Product p1, Product p2) -> Integer
+                                        .compare(p1.getProductId(), p2.getProductId()));
+                                break;
+                            case 2:
+                                Collections.sort(products, (Product p1, Product p2) -> Double
+                                        .compare(p1.getPrice(), p2.getPrice()));
+                                break;
+                            case 3:
+                                Collections.sort(products, (Product p1, Product p2) -> Integer
+                                        .compare(p1.getQuantity(), p2.getQuantity()));
+                                break;
+                            case 4:
+                                Collections.sort(products, (Product p1, Product p2) -> Integer
+                                        .compare(p1.getProductId(), p2.getProductId()));
+                                Collections.sort(products,
+                                        (Product p1, Product p2) -> p1.getName().compareTo(p2.getName()));
+                                break;
+                            case 5:
+                                exitCase3_1 = true;
+                                break;
+                            default:
+                                System.out.println("Lua chon khong hop le. Vui long nhap lai.");
+                        }
+                        System.out.println("Danh sach san pham hien co:");
+                        for (Product p : products) {
+                            System.out.println(p.getInfo());
+                        }
                     }
                     break;
                 case 4:
