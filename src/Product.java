@@ -8,7 +8,7 @@ public class Product {
   private String name;
   private double price;
   private int quantity;
-  File Productf = new File("../Product.txt");
+  File Productf = new File("C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\New folder\\Assignment\\Product.txt");
 
   public Product(int productId, String name, double price, int quantity) {
     this.productId = productId;
@@ -34,7 +34,8 @@ public class Product {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price + ", Quantity: "
         + this.quantity;
   }
-  //Lay thong tin product order
+
+  // Lay thong tin product order
   public String getOrderInfo() {
     return "ProductID: " + this.productId + ", Name: " + this.name + ", Price: " + this.price;
   }
@@ -69,4 +70,10 @@ public class Product {
     }
   }
 
+  public double isDigital() {
+    return -1;
+  }
+
+  public void setFile(double fileSize) {
+  }
 }

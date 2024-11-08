@@ -20,4 +20,14 @@ public class DigitalProduct extends Product {
         return fileSize;
     }
 
+    @Override
+    public double isDigital() {
+        return fileSize;
+    }
+
+    @Override
+    public void setFile(double fileSize) {
+        this.fileSize = fileSize;
+    }
+
 }

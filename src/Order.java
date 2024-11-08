@@ -8,10 +8,9 @@ import java.util.List;
 public class Order {
     private int orderId;
     private Customer customer;
-    private List<Product> products = new ArrayList<>();
-    private List<Integer> productQuan = new ArrayList<>();
+    private List<OrderProduct> orderProducts = new ArrayList<>();
     private double totalAmount;
-    File Orderf = new File("C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\Assignment\\Order.txt");
+    File Orderf = new File("C:\\Users\\Admin\\OneDrive\\Desktop\\Assignment\\New folder\\Assignment\\Order.txt");
 
     public Order(int orderId, Customer customer) {
         this.customer = customer;
@@ -22,29 +21,37 @@ public class Order {
         if (quantity > product.getQuantity()) {
             System.out.println("Khong co du so luong trong kho.");
         } else {
-            products.add(product);
-            product.updateQuantity(quantity);
-            productQuan.add(quantity);
-            saveOrderToFile();
-        }
+            // Thêm sản phẩm vào đơn hàng với thông tin tại thời điểm đơn hàng được tạo
+            if (product.isDigital() != -1) {
+                orderProducts
+                        .add(new OrderProduct(product.getProductId(), product.getName(), product.getPrice(), quantity,
+                                product.isDigital()));
+                product.updateQuantity(quantity);
+            } else {
+                orderProducts
+                        .add(new OrderProduct(product.getProductId(), product.getName(), product.getPrice(), quantity));
+                product.updateQuantity(quantity);
+            }
 
+        }
     }
 
     public double calculateTotal() {
-        for (int i = 0; i < products.size(); i++) {
-            totalAmount += products.get(i).getPrice() * productQuan.get(i);
+        totalAmount = 0;
+        for (OrderProduct orderProduct : orderProducts) {
+            totalAmount += orderProduct.getProductPrice() * orderProduct.getQuantity();
         }
         return totalAmount;
     }
 
     public String getOrderDetails() {
         String detail = "Order ID: " + Integer.toString(orderId) + ", " + customer.getInfo();
-        for (int i = 0; i < products.size(); i++) {
-            detail += "\n";
-            detail += " - " + products.get(i).getOrderInfo() + ", Quantity: " + productQuan.get(i);
+        for (OrderProduct orderProduct : orderProducts) {
+            detail += "\nProductID: " + orderProduct.getProductId() + ", Name: " + orderProduct.getProductName()
+                    + ", Price: " + orderProduct.getProductPrice() +
+                    ", Quantity: " + orderProduct.getQuantity();
         }
         detail += String.format("\nTotal Amount: %.2f", calculateTotal());
-
         return detail;
     }
 
@@ -61,5 +68,4 @@ public class Order {
     public int getOrderId() {
         return orderId;
     }
-
 }

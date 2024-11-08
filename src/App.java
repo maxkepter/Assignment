@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -110,7 +111,7 @@ public class App {
         return false;
     }
 
-    public static void main(String[] args) {
+    public static void run() {
 
         Store store = new Store();
         // Menu Data Field
@@ -136,15 +137,17 @@ public class App {
         List<Order> orders = new ArrayList<>();
 
         while (true) {
-            System.out.println("Quan ly cua ban hang ");
             System.out.println("-------------------------------");
-            System.out.println("Ban muon lam gi");
+            System.out.println("    Quan ly cua ban hang ");
+            System.out.println("-------------------------------");
+
             System.out.println("1. Tao moi don hang");
             System.out.println("2. In danh sach don hang");
             System.out.println("3. In danh sach san pham");
             System.out.println("4. Cap nhat thong tin san pham");
             System.out.println("5. Thoat");
             System.out.println("-------------------------------");
+            System.out.print("Ban muon lam gi: ");
             mainChoice = checkInputInt();
             switch (mainChoice) {
                 case 1:
@@ -201,6 +204,8 @@ public class App {
                                 // Them san pham nua hoac khong
                                 System.out.println("Ban co muon them san pham nua khong(1.Co/2.Khong)");
                                 int choiceCase1_1 = checkInputInt();
+                                Collections.sort(products, (Product p1, Product p2) -> Integer
+                                        .compare(p1.getProductId(), p2.getProductId()));
                                 if (choiceCase1_1 == 2) {
                                     break;
                                 }
@@ -273,8 +278,10 @@ public class App {
                                             + " san pham.");
                                     continue;
                                 }
+
                                 // Them san pham vao order
                                 ord.addProduct(selectedProduct, bquantity);
+                                ord.saveOrderToFile();
                                 System.out.println("San pham da duoc them vao don hang.");
                             }
                             System.out.println("Don hang da duoc tao.");
@@ -294,7 +301,8 @@ public class App {
                     break;
 
                 case 2:
-                    // Print all orders
+                    // In don hang
+                    System.out.println("-------------------------------");
                     if (store.getAllOrders().isEmpty()) {
                         System.out.println("Khong co don hang");
                     } else {
@@ -305,6 +313,7 @@ public class App {
                     }
                     break;
                 case 3:
+                    System.out.println("-------------------------------");
                     System.out.println("Danh sach san pham hien co:");
                     for (Product p : products) {
                         System.out.println(p.getInfo());
@@ -313,8 +322,10 @@ public class App {
                 case 4:
                     // Kiem tra neu danh sach san pham trong
                     if (products.isEmpty()) {
+                        System.out.println("-------------------------------");
                         System.out.println("Khong co san pham"); // Thong bao khong co san pham nao trong danh sach
                     } else {
+                        System.out.println("-------------------------------");
                         // Yeu cau nguoi dung nhap ID san pham can cap nhat
                         System.out.print("Nhap ID san pham can cap nhat: ");
                         int updateProductId = checkInputInt();
@@ -356,7 +367,14 @@ public class App {
                         if (newQuantity >= 0) {
                             productToUpdate.setQuantity(newQuantity);
                         }
+                        if (productToUpdate.isDigital() != -1) {
+                            System.out.print("Nhap dung luong moi (nhap -1 neu khong thay doi): ");
+                            double newFileSize = updateDouble();
+                            if (newPrice >= 0) {
+                                productToUpdate.setFile(newFileSize);
+                            }
 
+                        }
                         // Thong bao cap nhat thanh cong thong tin san pham
                         System.out.println("Thong tin san pham da duoc cap nhat.");
                     }
